@@ -6,7 +6,7 @@
 #    By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 18:51:59 by thmeyer           #+#    #+#              #
-#    Updated: 2023/01/24 16:48:18 by thmeyer          ###   ########.fr        #
+#    Updated: 2023/01/24 17:34:27 by thmeyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,13 +37,13 @@ PRINTF_A = $(DIR_PRINTF)libftprintf.a
 all: directory rsc $(NAME_S) $(NAME_C)
 
 $(NAME_S): $(PRINTF_A) $(OBJS_S)
-	$(CC) $(C_FLAGS) -o $(NAME_S) $(OBJS_S)
+	$(CC) $(C_FLAGS) -o $(NAME_S) $(OBJS_S) $(PRINTF_A)
 
 $(DIR_SRV)%.o: %.c Makefile
 	$(CC) $(C_FLAGS) -o $@ -c $< 
 
 $(NAME_C): $(PRINTF_A) $(OBJS_C)
-	$(CC) $(C_FLAGS) -o $(NAME_C) $(OBJS_C)
+	$(CC) $(C_FLAGS) -o $(NAME_C) $(OBJS_C) $(PRINTF_A)
 	
 $(DIR_CLT)%.o: %.c Makefile
 	$(CC) $(C_FLAGS) -o $@ -c $< 

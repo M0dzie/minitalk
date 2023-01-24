@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:14:58 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/24 15:07:15 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/24 17:03:38 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	main(void)
 {
-	int	pid;
-
-	printf("%d\n", getpid());
+	ft_printf("PID : %d\n", getpid());
+	pause();
 	return (0);
 }
