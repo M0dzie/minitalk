@@ -6,7 +6,7 @@
 #    By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/22 10:03:53 by thmeyer           #+#    #+#              #
-#    Updated: 2023/01/24 09:23:35 by thmeyer          ###   ########.fr        #
+#    Updated: 2023/01/24 18:11:21 by thmeyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS = ft_printf.c \
 
 OBJS = $(SRCS:%.c=$(DIR_OBJS)%.o)
 
-DIR_OBJS = ../Objs/
+DIR_OBJS = Objs/
 
 all: directory $(NAME)
 
@@ -38,7 +38,7 @@ $(DIR_OBJS)%.o: %.c Makefile $(HEADER)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(DIR_OBJS)
     
 fclean: 
 	@$(MAKE) clean
