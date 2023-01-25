@@ -6,30 +6,67 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:05:38 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/25 13:56:49 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/25 16:37:49 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minitalk.h"
+#include "../ft_printf/ft_printf.h"
+#include <signal.h>
 
-int	received(int signal)
+int	ft_atoi(const char *str);
+
+// SIGUSR1 = 0 / SIGUSR2 = 1
+
+// void	send_size(int size, int pid);
+// void	send_message(char *str, int pid);
+
+void	send_size(int size, int pid)
 {
-	if (signal == SIGUSR1)
-		ft_printf("SIGUSR1 received\n");
-	if (signal == SIGUSR2)
-		ft_printf("SIGUSR2 received\n");
-	return (0);
+	int	bytes;
+
+	bytes = 32;
+	while (--bytes >= 0)
+	{
+		if (size >> bytes & 1)
+			kill(pid, SIGUSR2);
+		else
+			kill(pid, SIGUSR1);
+		usleep(100);
+	}
+}
+
+void	send_message(char *str, int pid)
+{
+	int	bytes;
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		bytes = 8;
+		while (--bytes >= 0)
+		{
+			if (str[i] >> bytes & 1)
+				kill(pid, SIGUSR2);
+			else
+				kill(pid, SIGUSR1);
+			usleep(100);
+		}
+	}
 }
 
 int	main(int argc, char **argv)
 {
 	int	pid;
+	int	size;
 
 	if (argc != 3)
 		return (ft_printf("Error\n"), 0);
 	pid = ft_atoi(argv[1]);
-	if (pid > INT_MAX)
-		return (ft_printf("Error\n"), 0);
-	kill(pid, 0);
+	if (pid == -1)
+		return (ft_printf("Error\nPID is not valid.\n"), 0);
+	size = ft_strlen(argv[2]);
+	send_size(size, pid);
+	send_message(argv[2], pid);
 	return (0);
 }

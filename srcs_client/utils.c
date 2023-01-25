@@ -6,11 +6,11 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:46:59 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/25 13:49:59 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/25 16:37:07 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minitalk.h"
+#include "limits.h"
 
 int	ft_isdigit(int c)
 {
@@ -44,5 +44,7 @@ int	ft_atoi(const char *str)
 		result = result * 10 + ((str[i] - 48) * sign);
 		i++;
 	}
+	if (result > INT_MAX)
+		return (-1);
 	return ((int)result);
 }
