@@ -6,7 +6,7 @@
 #    By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 18:51:59 by thmeyer           #+#    #+#              #
-#    Updated: 2023/01/24 18:10:01 by thmeyer          ###   ########.fr        #
+#    Updated: 2023/01/25 13:49:37 by thmeyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,15 @@ BGREEN = \033[1;32m
 NAME_C = $(DIR_CLT)client
 NAME_S = $(DIR_SRV)server
 
+HEADER = minitalk.h
+
 CC = cc
 C_FLAGS = -Wall -Wextra -Werror
 
 RM = rm -rf
 
 SRCS_S = server.c
-SRCS_C = client.c
+SRCS_C = client.c utils.c
 
 OBJS_S = $(SRCS_S:%.c=$(DIR_OBJS_S)%.o)
 OBJS_C = $(SRCS_C:%.c=$(DIR_OBJS_C)%.o)
@@ -40,13 +42,13 @@ all: directory rsc $(NAME_S) $(NAME_C)
 $(NAME_S): $(PRINTF_A) $(OBJS_S)
 	$(CC) $(C_FLAGS) -o $(NAME_S) $(OBJS_S) $(PRINTF_A)
 
-$(DIR_OBJS_S)%.o: $(DIR_SRV)%.c Makefile
+$(DIR_OBJS_S)%.o: $(DIR_SRV)%.c Makefile $(HEADER)
 	$(CC) $(C_FLAGS) -o $@ -c $< 
 
 $(NAME_C): $(PRINTF_A) $(OBJS_C)
 	$(CC) $(C_FLAGS) -o $(NAME_C) $(OBJS_C) $(PRINTF_A)
 	
-$(DIR_OBJS_C)%.o: $(DIR_CLT)%.c Makefile
+$(DIR_OBJS_C)%.o: $(DIR_CLT)%.c Makefile $(HEADER)
 	$(CC) $(C_FLAGS) -o $@ -c $< 
 
 rsc:

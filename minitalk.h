@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 14:14:58 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/25 13:58:29 by thmeyer          ###   ########.fr       */
+/*   Created: 2023/01/25 10:23:35 by thmeyer           #+#    #+#             */
+/*   Updated: 2023/01/25 13:52:55 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minitalk.h"
+#ifndef MINITALK_H
+# define MINITALK_H
+# include "../ft_printf/ft_printf.h"
+# include <signal.h>
+# include "limits.h"
 
-void	bizarre(int dude)
-{
-	ft_printf("Test reussi");
-	dude = 0;
-}
+int	ft_atoi(const char *str);
+int	ft_isdigit(int c);
 
-int	main(void)
-{
-	pid_t	pid;
-
-	pid = getpid();
-	ft_printf("PID : %d\n", pid);
-	signal(SIGUSR1, bizarre);
-	pause();
-	return (0);
-}
+#endif
