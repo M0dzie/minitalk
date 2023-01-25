@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:05:38 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/25 16:37:49 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/25 17:09:30 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@
 int	ft_atoi(const char *str);
 
 // SIGUSR1 = 0 / SIGUSR2 = 1
-
-// void	send_size(int size, int pid);
-// void	send_message(char *str, int pid);
 
 void	send_size(int size, int pid)
 {
@@ -61,7 +58,7 @@ int	main(int argc, char **argv)
 	int	size;
 
 	if (argc != 3)
-		return (ft_printf("Error\n"), 0);
+		return (ft_printf("Error\nClient takes 2 parameters : a PID and a string."), 0);
 	pid = ft_atoi(argv[1]);
 	if (pid == -1)
 		return (ft_printf("Error\nPID is not valid.\n"), 0);

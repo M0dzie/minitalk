@@ -6,12 +6,12 @@
 #    By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 18:51:59 by thmeyer           #+#    #+#              #
-#    Updated: 2023/01/25 16:35:26 by thmeyer          ###   ########.fr        #
+#    Updated: 2023/01/25 16:48:50 by thmeyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NOCOLOR= \033[0m
-BGREEN = \033[1;32m
+BGREEN = \033[3;32m
 
 NAME_C = client
 NAME_S = server

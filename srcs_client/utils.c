@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:46:59 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/25 16:37:07 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/25 17:11:10 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_atoi(const char *str)
 		result = result * 10 + ((str[i] - 48) * sign);
 		i++;
 	}
-	if (result > INT_MAX)
+	if (result > INT_MAX || result == 0 || str[i] != '\0')
 		return (-1);
 	return ((int)result);
 }
