@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:05:38 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/25 17:09:30 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/25 17:17:02 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	ft_atoi(const char *str);
 
 void	send_size(int size, int pid)
 {
-	int	bytes;
+	int	bit;
 
-	bytes = 32;
-	while (--bytes >= 0)
+	bit = 32;
+	while (--bit >= 0)
 	{
-		if (size >> bytes & 1)
+		if (size >> bit & 1)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
@@ -34,16 +34,16 @@ void	send_size(int size, int pid)
 
 void	send_message(char *str, int pid)
 {
-	int	bytes;
+	int	bit;
 	int	i;
 
 	i = -1;
 	while (str[++i])
 	{
-		bytes = 8;
-		while (--bytes >= 0)
+		bit = 8;
+		while (--bit >= 0)
 		{
-			if (str[i] >> bytes & 1)
+			if (str[i] >> bit & 1)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
