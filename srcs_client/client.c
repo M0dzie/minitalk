@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:05:38 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/26 09:27:38 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/26 10:08:31 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <signal.h>
 
 int	ft_atoi(const char *str);
-
-// SIGUSR1 = 0 / SIGUSR2 = 1
 
 void	send_size(int size, int pid)
 {
@@ -25,9 +23,15 @@ void	send_size(int size, int pid)
 	while (--bit >= 0)
 	{
 		if (size >> bit & 1)
+		{
 			kill(pid, SIGUSR2);
+			ft_printf("1");
+		}
 		else
+		{
 			kill(pid, SIGUSR1);
+			ft_printf("0");
+		}
 		usleep(100);
 	}
 }
@@ -68,6 +72,6 @@ int	main(int argc, char **argv)
 	size = ft_strlen(argv[2]);
 	ft_printf("size = %d\n", size);
 	send_size(size, pid);
-	send_message(argv[2], pid);
+	// send_message(argv[2], pid);
 	return (0);
 }
