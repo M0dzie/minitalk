@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:05:38 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/25 17:17:02 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/26 09:27:38 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,15 @@ int	main(int argc, char **argv)
 	int	size;
 
 	if (argc != 3)
-		return (ft_printf("Error\nClient takes 2 parameters : a PID and a string."), 0);
+	{
+		ft_printf("Error\nClient takes 2 parameters : a PID and a string.");
+		return (0);
+	}
 	pid = ft_atoi(argv[1]);
 	if (pid == -1)
 		return (ft_printf("Error\nPID is not valid.\n"), 0);
 	size = ft_strlen(argv[2]);
+	ft_printf("size = %d\n", size);
 	send_size(size, pid);
 	send_message(argv[2], pid);
 	return (0);
