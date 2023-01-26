@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:05:38 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/26 12:59:17 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/26 13:40:39 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ int	main(int argc, char **argv)
 	size = ft_strlen(argv[2]);
 	ft_printf("size = %d\n", size);
 	send_size(size, pid);
-	// send_str(argv[2], pid);
+	send_str(argv[2], pid);
 	return (0);
 }

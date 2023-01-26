@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:14:58 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/26 13:39:28 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/26 14:42:18 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,58 @@ int	handling_size(int sig, int size, int *index)
 	return (size);
 }
 
+char	handling_char(int sig, char c, char *str, int *index)
+{
+	static int	i;
+	static int	bit = 8;
+
+	if (sig == 30)
+		c = c * 2 + 0;
+	else
+		c = c * 2 + 1;
+	bit--;
+	ft_printf("bit = %d\n", bit);
+	if (bit == 0)
+	{
+		ft_printf("c = %c\n", c);
+		str[i++] = c;
+		ft_printf("i = %d\n", i);
+		bit = 8;
+		c = 0;
+	}
+	// if (str[i] == '\0')
+	// 	*index = 3;
+	*index = 2;
+	return (c);
+}
+
+// void	mt_printstr()
+
 void	receive_signal(int sig)
 {
+	char		*str;
 	static int	index;
 	static int	size;
-	// static char	c = 0;
+	static char	c;
 
 	if (index == 0)
 			size = handling_size(sig, size, &index);
-	ft_printf("size = %d\n", size);
-	ft_printf("index = %d\n", index);
-	// else if (index == 1)
-	// 	size = handling_size(sig, &index);
-	// if (index == 2)
-	// 	size = handling_size(sig, &index);
-	// if (index == 3)
-	// 	size = handling_size(sig, &index);
-	// index = 0;
+	if (index == 1)
+	{
+		ft_printf("size = %d\n", size);
+		str = malloc(sizeof(char) * (size + 1));
+		if (!str)
+			exit(0);
+		str[size - 1] = '\0';
+		index = 2;
+	}
+	if (index == 2)
+	{
+		c = handling_char(sig, c, str, &index);
+	}
+	if (index == 3)
+		ft_printf("str : %s\n", str);
+	// PRINT + *index = 0 dans la fonction finale
 }
 
 int	main(int argc, char **argv)
