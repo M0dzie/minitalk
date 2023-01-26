@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:14:58 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/26 14:42:18 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/26 19:09:46 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,39 +31,45 @@ int	handling_size(int sig, int size, int *index)
 	return (size);
 }
 
-char	handling_char(int sig, char c, char *str, int *index)
+char	*handling_char(int sig, char *str, int *index)
 {
 	static int	i;
 	static int	bit = 8;
+	static char	c;
 
 	if (sig == 30)
+	{
 		c = c * 2 + 0;
+		ft_printf("0 et ");
+	}
 	else
+	{
 		c = c * 2 + 1;
+		ft_printf("1 et ");
+	}
+	ft_printf("c = %d\n", c);
 	bit--;
-	ft_printf("bit = %d\n", bit);
 	if (bit == 0)
 	{
-		ft_printf("c = %c\n", c);
-		str[i++] = c;
-		ft_printf("i = %d\n", i);
+		str[i] = c;
+		ft_printf("str[%d] = %c\n", i, str[i]);
 		bit = 8;
 		c = 0;
+		i++;
 	}
-	// if (str[i] == '\0')
-	// 	*index = 3;
+	if (str[i] == '\0')
+		*index = 3;
 	*index = 2;
-	return (c);
+	return (str);
 }
 
 // void	mt_printstr()
 
 void	receive_signal(int sig)
 {
-	char		*str;
+	static char	*str;
 	static int	index;
 	static int	size;
-	static char	c;
 
 	if (index == 0)
 			size = handling_size(sig, size, &index);
@@ -73,15 +79,15 @@ void	receive_signal(int sig)
 		str = malloc(sizeof(char) * (size + 1));
 		if (!str)
 			exit(0);
-		str[size - 1] = '\0';
+		str[size] = '\0';
 		index = 2;
 	}
 	if (index == 2)
-	{
-		c = handling_char(sig, c, str, &index);
-	}
+		str = handling_char(sig, str, &index);
 	if (index == 3)
-		ft_printf("str : %s\n", str);
+		ft_printf("Coucou\n");
+	// if (index == 3)
+	// ft_printf("str : %s\n", str);
 	// PRINT + *index = 0 dans la fonction finale
 }
 
@@ -96,49 +102,3 @@ int	main(int argc, char **argv)
 		pause();
 	return (0);
 }
-
-// void	handling_size(int signal)
-// {
-// 	if (signal == SIGUSR1)
-// 		g_size = g_size * 2 + 0;
-// 	if (signal == SIGUSR2)
-// 		g_size = g_size * 2 + 1;
-// }
-
-// void	handling_char(int signal)
-// {
-// 	if (signal == SIGUSR1)
-// 		g_char = g_char * 2 + 0;
-// 	if (signal == SIGUSR2)
-// 		g_char = g_char * 2 + 1;
-// }
-
-	// bit = 32;
-	// i = 0;
-	// while (--bit >= 0)
-	// {
-	// 	signal(SIGUSR1, handling_size);
-	// 	signal(SIGUSR2, handling_size);
-	// 	pause();
-	// }
-	// ft_printf("size = %d\n", g_size);
-	// str = malloc(sizeof(char) * (g_size + 1));
-	// if (!str)
-	// 	return (0);
-	// while (g_size - i > 0)
-	// {
-	// 	bit = 8;
-	// 	g_char = 0;
-	// 	while (--bit >= 0)
-	// 	{
-	// 		signal(SIGUSR1, handling_char);
-	// 		signal(SIGUSR2, handling_char);
-	// 		pause();
-	// 	}
-	// 	ft_printf("c = %c\n", g_char);
-	// 	str[i] = g_char;
-	// 	i++;
-	// }
-	// str[i] = '\0';
-	// ft_printf("%s\n", str);
-	// Faire une fonction tampon qui prend le sig en param et qui reparti ensuite

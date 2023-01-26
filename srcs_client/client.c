@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:05:38 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/26 13:40:39 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/26 19:11:37 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,15 @@ void	send_str(char *str, int pid)
 		while (--bit >= 0)
 		{
 			if (str[i] >> bit & 1)
+			{
 				kill(pid, SIGUSR2);
+				ft_printf("1");
+			}
 			else
+			{
 				kill(pid, SIGUSR1);
+				ft_printf("0");
+			}
 			usleep(100);
 		}
 	}
