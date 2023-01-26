@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 13:46:59 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/26 10:01:46 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/26 11:17:39 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-int	ft_atoi(const char *str)
+int	mt_atoi(const char *str)
 {
 	long long int	i;
 	int				sign;

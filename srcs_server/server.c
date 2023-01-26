@@ -6,62 +6,68 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:14:58 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/26 10:08:18 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/26 11:15:46 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf/ft_printf.h"
 #include <signal.h>
+#include <stdlib.h>
 
-void	signal_handler(int signal)
+int	g_size = 0;
+
+void	handling_size(int signal)
 {
-	// static int	size;
-
 	if (signal == SIGUSR1)
-		// size *= 2 + 0;
-		ft_printf("0");
+		g_size = g_size * 2 + 0;
 	if (signal == SIGUSR2)
-		// size *= 2 + 1;
-		ft_printf("1");
-	// ft_printf("size = %d\n", size);
+		g_size = g_size * 2 + 1;
 }
 
-// int	receive_size(void)
-// {
-// 	static int	size;
-// 	int			bit;
+void	handling_char(int signal)
+{
+	static char	c;
 
-// 	size = 0;
-// 	bit = 32;
-// 	while (--bit >= 0)
-// 	{
-// 		if (signal(SIGUSR1, signal_handler))
-// 		{
-// 			size *= 2 + 0;
-// 			ft_printf("0\n");
-// 		}
-// 		if (signal(SIGUSR2, signal_handler))
-// 		{
-// 			size *= 2 + 1;
-// 			ft_printf("1\n");
-// 		}
-// 	}
-// 	ft_printf("size = %d\n", size);
-// 	return (size);
-// }
+	c = 0;
+	if (signal == SIGUSR1)
+		c = c * 2 + 0;
+	if (signal == SIGUSR2)
+		c = c * 2 + 1;
+	ft_printf("c = %c", c);
+}
 
 int	main(void)
 {
-	pid_t			pid;
-	// static int		size;
+	int		bit;
+	int		i;
+	char	c;
+	char	*str;
 
-	pid = getpid();
-	ft_printf("PID : %d\n", pid);
-	while (1)
+	ft_printf("PID : %d\n", getpid());
+	bit = 32;
+	i = -1;
+	c = 0;
+	while (--bit >= 0)
 	{
-		signal(SIGUSR1, signal_handler);
-		signal(SIGUSR2, signal_handler);
+		signal(SIGUSR1, handling_size);
+		signal(SIGUSR2, handling_size);
 		pause();
 	}
+	ft_printf("size = %d\n", g_size);
+	str = malloc(sizeof(char) * (g_size + 1));
+	if (!str)
+		return (0);
+	while (str[++i])
+	{
+		bit = 8;
+		while (--bit >= 0)
+		{
+			signal(SIGUSR1, handling_char);
+			signal(SIGUSR2, handling_char);
+			pause();
+		}
+		str[i] = c;
+	}
+	ft_printf("str = %s", str);
 	return (0);
 }

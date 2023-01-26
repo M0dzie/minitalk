@@ -6,14 +6,14 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:05:38 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/26 10:08:31 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/26 11:17:51 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf/ft_printf.h"
 #include <signal.h>
 
-int	ft_atoi(const char *str);
+int	mt_atoi(const char *str);
 
 void	send_size(int size, int pid)
 {
@@ -23,20 +23,14 @@ void	send_size(int size, int pid)
 	while (--bit >= 0)
 	{
 		if (size >> bit & 1)
-		{
 			kill(pid, SIGUSR2);
-			ft_printf("1");
-		}
 		else
-		{
 			kill(pid, SIGUSR1);
-			ft_printf("0");
-		}
 		usleep(100);
 	}
 }
 
-void	send_message(char *str, int pid)
+void	send_str(char *str, int pid)
 {
 	int	bit;
 	int	i;
@@ -66,12 +60,12 @@ int	main(int argc, char **argv)
 		ft_printf("Error\nClient takes 2 parameters : a PID and a string.");
 		return (0);
 	}
-	pid = ft_atoi(argv[1]);
+	pid = mt_atoi(argv[1]);
 	if (pid == -1)
 		return (ft_printf("Error\nPID is not valid.\n"), 0);
 	size = ft_strlen(argv[2]);
 	ft_printf("size = %d\n", size);
 	send_size(size, pid);
-	// send_message(argv[2], pid);
+	send_str(argv[2], pid);
 	return (0);
 }
