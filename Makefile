@@ -6,7 +6,7 @@
 #    By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 18:51:59 by thmeyer           #+#    #+#              #
-#    Updated: 2023/01/25 16:48:50 by thmeyer          ###   ########.fr        #
+#    Updated: 2023/01/27 12:57:58 by thmeyer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,6 @@ BGREEN = \033[3;32m
 
 NAME_C = client
 NAME_S = server
-
-HEADER = 
 
 CC = cc
 C_FLAGS = -Wall -Wextra -Werror
@@ -75,4 +73,4 @@ directory:
 	@mkdir -p $(DIR_OBJS_S)
 	@mkdir -p $(DIR_OBJS_C)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re directory
