@@ -6,16 +6,13 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:14:58 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/27 10:03:41 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/27 11:21:13 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf/ft_printf.h"
 #include <signal.h>
 #include <stdlib.h>
-
-// int	g_size = 0;
-// int	g_char = 0;
 
 int	handling_size(int sig, int size, int *index)
 {
@@ -27,14 +24,17 @@ int	handling_size(int sig, int size, int *index)
 		size = size * 2 + 1;
 	bit--;
 	if (bit == 0)
+	{
 		*index = 1;
+		bit = 32;
+	}		
 	return (size);
 }
 
 char	*handling_char(int sig, int size, char *str, int *index)
 {
 	static int	i = 0;
-	static int	bit = 9;
+	static int	bit = 8;
 	static char	c = 0;
 
 	if (sig == 30)
@@ -51,28 +51,22 @@ char	*handling_char(int sig, int size, char *str, int *index)
 	}
 	if (i == size)
 	{
-		str[++i] = '\0';
+		str[i] = '\0';
 		*index = 3;
+		i = 0;
 	}
 	return (str);
 }
 
-void	mt_printstr(char *str, int *index)
-{
-	ft_printf("%s\n", str);
-	free(str);
-	*index = 0;
-}
-
 void	receive_signal(int sig)
 {
-	static char	*str;
+	static char	*str = NULL;
 	static int	index = 0;
 	static int	size = 0;
 
 	if (index == 0)
-			size = handling_size(sig, size, &index);
-	if (index == 1)
+		size = handling_size(sig, size, &index);
+	else if (index == 1)
 	{
 		str = malloc(sizeof(char) * (size + 1));
 		if (!str)
@@ -81,8 +75,14 @@ void	receive_signal(int sig)
 	}
 	if (index == 2)
 		str = handling_char(sig, size, str, &index);
-	if (index == 3) 
-		mt_printstr(str, &index);
+	if (index == 3)
+	{
+		size = 0;
+		index = 0;
+		ft_printf("%s\n", str);
+		free(str);
+		str = NULL;
+	}
 }
 
 int	main(int argc, char **argv)

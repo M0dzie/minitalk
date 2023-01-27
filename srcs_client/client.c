@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 15:05:38 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/27 09:47:09 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/27 10:43:12 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	send_size(int size, int pid)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(100);
+		usleep(50);
 	}
 }
 
@@ -45,7 +45,7 @@ void	send_str(char *str, int pid)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
-			usleep(100);
+			usleep(50);
 		}
 	}
 }
