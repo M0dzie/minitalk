@@ -6,7 +6,7 @@
 /*   By: thmeyer <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 14:14:58 by thmeyer           #+#    #+#             */
-/*   Updated: 2023/01/26 19:09:46 by thmeyer          ###   ########.fr       */
+/*   Updated: 2023/01/27 10:03:41 by thmeyer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,64 +31,58 @@ int	handling_size(int sig, int size, int *index)
 	return (size);
 }
 
-char	*handling_char(int sig, char *str, int *index)
+char	*handling_char(int sig, int size, char *str, int *index)
 {
-	static int	i;
-	static int	bit = 8;
-	static char	c;
+	static int	i = 0;
+	static int	bit = 9;
+	static char	c = 0;
 
 	if (sig == 30)
-	{
 		c = c * 2 + 0;
-		ft_printf("0 et ");
-	}
 	else
-	{
 		c = c * 2 + 1;
-		ft_printf("1 et ");
-	}
-	ft_printf("c = %d\n", c);
 	bit--;
 	if (bit == 0)
 	{
 		str[i] = c;
-		ft_printf("str[%d] = %c\n", i, str[i]);
 		bit = 8;
 		c = 0;
 		i++;
 	}
-	if (str[i] == '\0')
+	if (i == size)
+	{
+		str[++i] = '\0';
 		*index = 3;
-	*index = 2;
+	}
 	return (str);
 }
 
-// void	mt_printstr()
+void	mt_printstr(char *str, int *index)
+{
+	ft_printf("%s\n", str);
+	free(str);
+	*index = 0;
+}
 
 void	receive_signal(int sig)
 {
 	static char	*str;
-	static int	index;
-	static int	size;
+	static int	index = 0;
+	static int	size = 0;
 
 	if (index == 0)
 			size = handling_size(sig, size, &index);
 	if (index == 1)
 	{
-		ft_printf("size = %d\n", size);
 		str = malloc(sizeof(char) * (size + 1));
 		if (!str)
 			exit(0);
-		str[size] = '\0';
 		index = 2;
 	}
 	if (index == 2)
-		str = handling_char(sig, str, &index);
-	if (index == 3)
-		ft_printf("Coucou\n");
-	// if (index == 3)
-	// ft_printf("str : %s\n", str);
-	// PRINT + *index = 0 dans la fonction finale
+		str = handling_char(sig, size, str, &index);
+	if (index == 3) 
+		mt_printstr(str, &index);
 }
 
 int	main(int argc, char **argv)
