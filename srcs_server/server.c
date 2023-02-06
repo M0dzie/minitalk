@@ -18,7 +18,7 @@ int	handling_size(int sig, int size, int *index)
 {
 	static int	bit = 32;
 
-	if (sig == 30)
+	if (sig == 30 || sig == 10)
 		size = size * 2 + 0;
 	else
 		size = size * 2 + 1;
@@ -37,7 +37,7 @@ char	*handling_char(int sig, int size, char *str, int *index)
 	static int	bit = 8;
 	static char	c = 0;
 
-	if (sig == 30)
+	if (sig == 30 || sig == 10)
 		c = c * 2 + 0;
 	else
 		c = c * 2 + 1;
@@ -60,7 +60,7 @@ char	*handling_char(int sig, int size, char *str, int *index)
 
 void	receive_signal(int sig)
 {
-	static char	*str = NULL;
+	static char	*str = 0;
 	static int	index = 0;
 	static int	size = 0;
 
@@ -81,7 +81,7 @@ void	receive_signal(int sig)
 		index = 0;
 		ft_printf("%s\n", str);
 		free(str);
-		str = NULL;
+		str = 0;
 	}
 }
 

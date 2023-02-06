@@ -62,8 +62,7 @@ int	print_address(unsigned long addr, char *base, int first)
 	len_base = ft_strlen(base);
 	if (addr >= len_base)
 		len_addr += print_address((addr / len_base), base, 0);
-	if (addr >= 0)
-		len_addr += printchar(base[addr % len_base]);
+	len_addr += printchar(base[addr % len_base]);
 	return (len_addr);
 }
 
@@ -76,7 +75,6 @@ int	printhex_base(unsigned int nbr, char *base)
 	len_base = ft_strlen(base);
 	if (nbr >= len_base)
 		result += printhex_base((nbr / len_base), base);
-	if (nbr >= 0)
-		result += printchar(base[nbr % len_base]);
+	result += printchar(base[nbr % len_base]);
 	return (result);
 }
