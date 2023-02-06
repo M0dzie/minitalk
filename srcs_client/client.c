@@ -26,7 +26,7 @@ void	send_size(int size, int pid)
 			kill(pid, SIGUSR2);
 		else
 			kill(pid, SIGUSR1);
-		usleep(50);
+		usleep(100);
 	}
 }
 
@@ -45,7 +45,7 @@ void	send_str(char *str, int pid)
 				kill(pid, SIGUSR2);
 			else
 				kill(pid, SIGUSR1);
-			usleep(50);
+			usleep(100);
 		}
 	}
 }
